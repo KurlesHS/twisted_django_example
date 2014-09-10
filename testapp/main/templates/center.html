@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!link rel="stylesheet" href="style.css" media="screen">
+    <link rel="stylesheet" href="/static/main/demo1.css" media="screen">
+    <link rel="stylesheet" href="/3rdparty/dijit/themes/claro/claro.css" media="screen">
+    <title>Документ без названия</title>
+</head>
+<body class="claro">
+<script src="/3rdparty/dojo/dojo.js" data-dojo-config="async: true"></script>
+<script>
+    require(["dojo/parser", "dijit/form/Button", "dijit/form/TextBox", "dojo/dom", "dojo/domReady!",
+        "dijit/layout/BorderContainer", "dijit/layout/ContentPane"], function (parser) {
+        parser.parse();
+    });
+</script>
+<script>
+    var lastX = 0, lastY = 0;
+    function doit(dom) {
+        var div = dom.byId("borderContainerTwo");
+        var divInfo = dom.position(div, true), // use true to get the x/y relative to the document root
+                span = dom.byId('content'),
+                spanInfo = dom.position(span, true);
+        lastX += divInfo.x - spanInfo.x + (divInfo.w - spanInfo.w) / 2;
+        lastY += divInfo.y - spanInfo.y + (divInfo.h - spanInfo.h) / 2;
+        dom.style(span, {
+            left: lastX + "px",
+            top: lastY + "px"
+        });
+    }
+</script>
+<script>
+    var lastX = 0, lastY = 0;
+    function onClick(e) {
+        console.log('click', e);
+        require(["dojo/parser", "dijit/form/Button", "dijit/form/TextBox", "dojo/dom", "dojo/domReady!",
+            "dijit/layout/BorderContainer", "dijit/layout/ContentPane"], function (dom, Button) {
+            console.log(dom);
+            console.log(Button);
+        });
+        doit();
+
+    }
+
+    function doit() {
+        require(["dojo/dom", "dojo/dom-geometry", "dojo/dom-style"], function (dom, domGeom, domStyle) {
+            // fetch a node by id="someNode"
+            var node = dom.byId("borderContainerTwo");
+            console.log(node);
+            var div = dom.byId("borderContainerTwo");
+            var divInfo = domGeom.position(div, true), // use true to get the x/y relative to the document root
+                    span = dom.byId('content'),
+                    spanInfo = domGeom.position(span, true);
+            lastX += divInfo.x - spanInfo.x + (divInfo.w - spanInfo.w) / 2;
+            lastY += divInfo.y - spanInfo.y + (divInfo.h - spanInfo.h) / 2;
+            domStyle.set(span, {
+                left: lastX + "px",
+                top: lastY + "px"
+            });
+        });
+    }
+    doit();
+    require(["dojo/on", "dojo/dom"], function (on, dom) {
+        var node = dom.byId("borderContainerTwo");
+        console.log("set resize", node);
+        on(window, "resize", function (e) {
+            console.log("on resize");
+            doit();
+        })
+    })
+
+    require("dojo/on")(window, "resize", function(){ console.log("got resize"); })
+
+
+</script>
+<div id="borderContainerTwo" style="border: 1px solid #7fff65;">
+
+</div>
+<div id="content" style="position: absolute;border: 1px solid #ffff00;">
+    <h1 id="title1">SomeText</h1>
+
+    <label for="username">User Name: </label>
+    <input id="username" type="text" data-dojo-type="dijit/form/TextBox">
+
+    <br>
+    <label for="password">Password : </label>
+    <input id="password" type="password" data-dojo-type="dijit/form/TextBox">
+
+    <br>
+    <button id="someNode" data-dojo-type="dijit/form/Button" data-dojo-props="onClick:onClick">
+        Click me!
+    </button>
+
+</div>
+<!-- end BorderContainer -->
+
+<!--script>
+    require(["dojo/dom", "dojo/parser", "dijit/layout/ContentPane", "dijit/layout/BorderContainer", "dijit/layout/TabContainer",
+        "dijit/layout/AccordionContainer", "dijit/layout/AccordionPane", ], function (parser, dom) {
+        //parser.parse();
+        var div = dom.byId("borderContainerTwo");
+        var divInfo = dom.position(div, true); // use true to get the x/y relative to the document root
+        doit(dom);
+    });
+</script-->
+</body>
+</html>

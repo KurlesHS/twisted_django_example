@@ -31,9 +31,10 @@ log.startLogging(sys.stdout)
 
 media_src = FileNoDir(os.path.join(os.path.abspath("."), "media"))
 static_src = FileNoDir(os.path.join(os.path.abspath("."), "static"))
-root_src = FileNoDir(os.path.join(os.path.abspath("."), "3rdparty"))
+root_src = FileNoDir(os.path.join(os.path.abspath("."), "3rdparty/3rdparty"))
 
 print static_src
+print root_src
 res = wsgi.WSGIResource(reactor, reactor.getThreadPool(), wsgi_local.application)
 root = Root(res)
 root.putChild("media", media_src)

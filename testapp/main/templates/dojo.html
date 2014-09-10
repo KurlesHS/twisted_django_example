@@ -3,47 +3,48 @@
 <head>
     <meta charset="utf-8">
     <!link rel="stylesheet" href="style.css" media="screen">
-    <link rel="stylesheet" href="/static/main/demo1.css" media="screen">
+    <link rel="stylesheet" href="/static/main/dojo.css" media="screen">
     <link rel="stylesheet" href="/3rdparty/dijit/themes/claro/claro.css" media="screen">
     <title>Документ без названия</title>
 </head>
 <body class="claro">
-<div  data-dojo-type="dijit.layout.BorderContainer" gutters="false" >
-    <div data-dojo-type="dijit.layout.ContentPane" style="width: 45%; border: 1px solid lightgray" region="left">
-
-</div>
-<div data-dojo-type="dijit.layout.ContentPane" region="center">
-    <div  data-dojo-type="dijit.layout.BorderContainer"  gutters="false" >
-        <div data-dojo-type="dijit.layout.ContentPane" region="top" style="height:40%; ">
-                &nbsp;
+<!-- load dojo and provide config via data attribute -->
+<script src="/3rdparty/dojo/dojo.js" data-dojo-config="async: true"></script>
+<script>
+    require(["dojo/parser", "dijit/layout/ContentPane", "dijit/layout/BorderContainer", "dijit/layout/TabContainer",
+        "dijit/layout/AccordionContainer", "dijit/layout/AccordionPane"], function (parser) {
+        parser.parse();
+    });
+</script>
+<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true, liveSplitters:false"
+     id="borderContainerTwo" style="border: 1px solid #ff0000;">
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top', splitter:false">
+        Hi, usually here you would have important information, maybe your company logo, or functions you need to access
+        all the time..
+    </div>
+    <div data-dojo-type="dijit/layout/AccordionContainer" data-dojo-props="minSize:20, region:'leading', splitter:true"
+         style="width: 300px;" id="leftAccordion">
+        <div data-dojo-type="dijit/layout/AccordionPane" title="One fancy Pane"></div>
+        <div data-dojo-type="dijit/layout/AccordionPane" title="Another one"></div>
+        <div data-dojo-type="dijit/layout/AccordionPane" title="Even more fancy" data-dojo-props="selected:true"></div>
+        <div data-dojo-type="dijit/layout/AccordionPane" title="Last, but not least">
         </div>
-         <div data-dojo-type="dijit.layout.ContentPane" region="center" style="text-align: center;">
-                <button data-dojo-type="dijit.form.Button" type="button" style="vertical-align: middle">B1</button><br/>
-                <button data-dojo-type="dijit.form.Button" type="button">B2</button>
-         </div>
-    </div >
-</div>
-<div data-dojo-type="dijit.layout.ContentPane" style="width: 45%; border: 1px solid lightgray" region="right">
+    </div>
+    <!-- end AccordionContainer -->
+    <div data-dojo-type="dijit/layout/TabContainer" data-dojo-props="region:'center', tabStrip:true, selected:true">
+        <div data-dojo-type="dijit/layout/ContentPane" title="My first tab">
+            Lorem ipsum and all around...
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane" title="My second tab">
+            Lorem ipsum and all around - second...
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="closable:true" title="My last tab">
+            Lorem ipsum and all around - last...
+        </div>
+    </div>
+    <!-- end TabContainer -->
 
 </div>
-
-    <!-- load dojo and provide config via data attribute -->
-    <script src="/3rdparty/dojo/dojo.js" data-dojo-config="async: true"></script>
-    <script>
-        function onClick(e) {
-            require(["dojo/dom"], function (dom) {
-                console.log("I was clicked!", e);
-                var tr = dom.byId('title1');
-                tr.innerHTML = 'I was clicked!';
-            });
-        }
-    </script>
-    <script>
-        require(["dojo/parser", "dijit/form/Button", "dijit/form/TextBox", "dojo/dom", "dojo/domReady!",
-            "dijit/layout/BorderContainer", "dijit/layout/ContentPane"], function (parser) {
-            parser.parse();
-        });
-    </script>
-</div>
+<!-- end BorderContainer -->
 </body>
 </html>
