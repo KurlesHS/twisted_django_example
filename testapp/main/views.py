@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login as login_
 import json
 # Create your views here.
 from django.http import HttpResponse
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 def common(request, template_file):
@@ -17,12 +18,13 @@ def common(request, template_file):
     return HttpResponse(t.render(c))
 
 
+@ensure_csrf_cookie
 def login(request):
     print "user is auth: %s" % request.user.is_authenticated()
     print "username: %s" % request.user.username
     print request.method
-    username = request.GET.get('login')
-    password = request.GET.get('password')
+    username = request.POST.get('login')
+    password = request.POST.get('password')
     print username, password
     if username is not None and password is not None:
         response_data = dict()

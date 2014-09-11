@@ -22,7 +22,7 @@
 
     <p>
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" value="4815162342">
+        <input type="password" name="password" id="password" data-dojo-type="dijit/form/TextBox" value="4815162342">
     </p>
 
     <p class="login-submit">
@@ -40,26 +40,42 @@
 </script>
 <script src="/3rdparty/dojo/dojo.js" data-dojo-config="async: true"></script>
 <script>
+    require(["dojo/parser", "dijit/form/TextBox", "dojo/domReady!"],
+            function(parser) {
+                parser.parse()
+            });
+
     function checkUser() {
-        require(["dojo/_base/xhr", "dojo/dom", "dojo/json", "dojo/_base/array", "dojo/domReady!"],
-                function (xhr, dom, JSON, arrayUtil ) {
+        require(["dojo/_base/xhr", "dojo/dom", "dojo/json", "dojo/_base/array",
+            "dojo/cookie", "dojo/parser", "dijit/registry", "dojo/domReady!"],
+                function (xhr, dom, JSON, arrayUtil, cookie, parser, registry) {
 
                     // Keep hold of the container node
                     //var containerNode = dom.byId("newsContainerNode");
                     var username = dom.byId('login').value;
-                    var password = dom.byId('password').value;
+                    var password = registry.byId('password').get("value");
                     var json_data = JSON.stringify({'login': 'username', 'password': 'password'});
                     // Using xhr.get, as we simply want to retrieve information
-                    xhr.get({
+                    var csrftoken = cookie('csrftoken')
+                    xhr.post({
                         // The URL of the request
-                        url: "/login",
+                        url: "/login/",
                         // Handle the result as JSON data
                         handleAs: "json",
                         timeout: 4000,
+                        //postData: json_data,
+
+                        headers: {
+                            // CSRFT protection
+                            "X-CSRFToken": cookie("csrftoken")
+                        },
+
                         content: {
                             'login': username,
                             'password': password
                         },
+
+
                         // The success handler
                         load: function (jsonData) {
                             console.log(jsonData)
@@ -70,7 +86,6 @@
                             console.log('error');
                         }
                     });
-
                 });
     }
 </script>
