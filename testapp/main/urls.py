@@ -10,6 +10,9 @@ urlpatterns = patterns(
     (r'^hello/$', 'main.views.common', {"template_file": "hello.html"}),
     (r'^dojo/$', 'main.views.common', {"template_file": "dojo.html"}),
     (r'^center/$', 'main.views.common', {"template_file": "center.html"}),
+    (r'^login/$', 'main.views.login'),
+
+
 
 
 )
