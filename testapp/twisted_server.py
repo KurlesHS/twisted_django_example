@@ -28,6 +28,7 @@ class FileNoDir(static.File):
 sys.path.append("testapp")
 os.environ['DJANGO_SETTINGS_MODULE'] = 'testapp.settings'
 log.startLogging(sys.stdout)
+log.startLogging(sys.stdout)
 
 media_src = FileNoDir(os.path.join(os.path.abspath("."), "media"))
 static_src = FileNoDir(os.path.join(os.path.abspath("."), "static"))

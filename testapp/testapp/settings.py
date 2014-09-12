@@ -10,7 +10,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.realpath(os.path.join("../",os.path.realpath(os.path.dirname(__file__))))
+CUR_DIR = os.path.realpath(os.path.dirname(__file__))
+BASE_DIR = os.path.realpath(os.path.join(CUR_DIR, ".."))
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,10 +27,10 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-PROJECT_PATH = os.path.realpath("../" + os.path.realpath(os.path.dirname(__file__)))
+PROJECT_PATH = BASE_DIR
 
 TEMPLATE_DIRS = (
-    BASE_DIR + 'main/templates/'
+    BASE_DIR + 'testapp/main/templates/',
 )
 
 # Application definition
